@@ -16,7 +16,7 @@ int main(void) {
     }
     while (ccNumber <= 0);
     
-    ccValidation(ccNumber);
+    ccValidation(ccNumber); //run validation function
     
     return 0;
 }
@@ -46,15 +46,15 @@ int ccSum(long ccNumber) {
     
     for (int i=0; i < ccLength(ccNumber); i++) {
        
-        int single_number = tempNumber % 10; 
+        int single_number = tempNumber % 10;       // get last number of CCnumber
         tempNumber /= 10;
         
-        if (i % 2 != 0) {
+        if (i % 2 != 0) {                          // odd number
             
-            single_number *= 2; // Odd Number
+            single_number *= 2;
             sum_odd += (single_number / 10) + (single_number % 10);
         }        
-        else {
+        else {                                   // even number
             sum_even += single_number;
         }
     }
@@ -80,7 +80,7 @@ string ccBrand(long ccNumber) {
     // int master_number = 51 | 52 | 53 | 54;
     // int visa_number = 4;
     
-    while (tempNumber > 100) // Get first 2 brand number
+    while (tempNumber > 100)                                // Get first 2 brand number
     {
         tempNumber /= 10;
     }
@@ -95,7 +95,7 @@ string ccBrand(long ccNumber) {
         return "MASTERCARD";
     }
     
-    else if ((length == visa_length13 || length == visa_length16) && brand_number / 10 == 4){
+    else if ((length == visa_length13 || length == visa_length16) && brand_number / 10 == 4){    // divide 10 to compare single 4
         return "VISA";
     }
     
@@ -107,13 +107,14 @@ string ccBrand(long ccNumber) {
 void ccValidation(long ccNumber) {
     
     if (ccLength(ccNumber) == 13 || ccLength(ccNumber) == 15 || ccLength(ccNumber) == 16) {     // validation of length
+        
         if (ccSum(ccNumber) % 10 == 0) {                                                        // validation of sum
             printf("%s\n", ccBrand(ccNumber));
         }
-        else {
+        else {                              // decline wrong sum
             printf("INVALID\n");
         }
-    }    
+    }                                      //decline wrong length
     else {
         printf("INVALID\n");
     }
